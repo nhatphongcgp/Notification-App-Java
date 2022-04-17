@@ -23,8 +23,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     // Get new FCM registration token
                     String token = task.getResult();
-
                     Log.d("mytask", token);
+                    // create a varible get database
+                    // implemnet fiel token to database before push
                     Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
                 });
 
@@ -32,25 +33,4 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-
-    void showNotification(String title, String message) {
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("1",
-                    "nhatphongcgp",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("My Description");
-            mNotificationManager.createNotificationChannel(channel);
-        }
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "1")
-                .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                .setContentTitle(title) // title for notification
-                .setContentText(message)// message for notification
-                .setAutoCancel(true); // clear notification after click
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(pi);
-        mNotificationManager.notify(0, mBuilder.build());
-    }
 }
